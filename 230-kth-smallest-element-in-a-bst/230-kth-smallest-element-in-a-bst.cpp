@@ -13,8 +13,16 @@
 //inorder traversal gives the bst in sorted order. we will use stack to store the data.
 class Solution {
 public:
+    void smallest(TreeNode* root, stack<int> &s){
+        if(!root) return;
+        
+        if(root->right) smallest(root->right,s);
+        s.push(root->val);
+        if(root->left) smallest(root->left, s);
+    }
+    
     int kthSmallest(TreeNode* root, int k) {
-        stack<TreeNode*> s;
+        /*stack<TreeNode*> s;
         TreeNode *node = root;
         int count = 0;
         
@@ -32,6 +40,19 @@ public:
                 node = node->right;
             }
         }
-        return -1;
+        return -1;*/
+        
+        stack<int> s;
+        smallest(root, s);
+        
+        int count =1;
+        int ans;
+        while(count!=k){
+             s.pop();
+            count++;
+        }
+        ans = s.top();
+        return ans;
     }
+    
 };
